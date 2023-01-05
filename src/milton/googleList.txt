@@ -1,0 +1,68 @@
+package milton;
+
+import java.io.BufferedReader;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
+public class googleList {
+
+    public class Main {
+        public static void main(String[] args) throws Exception {
+            // Map with word as key and counter as value, whenever new word found increment counter else create a new key with word as key increment counter
+            Map<String, ArrayList<String>> bookList = new HashMap<>();  
+            String rating;
+            String category;
+            String line;
+            String[] resultArray;
+            
+            BufferedReader br = new BufferedReader(new FileReader("googleplaystore.csv"));
+            List<String> resultListStr = new LinkedList<>();
+            
+            while((line = br.readLine()) != null){
+                // Spilt the line in order to get publisher name
+                resultArray = line.split(",");
+
+                // Rating is the third element in the array
+                rating = resultArray[2];
+                
+                // Category is the second element in the array
+                category = resultArray[1]; 
+
+                // Get the rating and category -> average rating
+                resultListStr = Arrays.asList(resultArray);
+                resultListStr.stream().filter((n) -> (n == "category")); // filter by category
+                
+            }
+            br.close();
+            }
+        }
+            
+            public static void filter(List<Integer> numList) {
+
+                System.out.println("======== FILTER ==========");
+                // filter
+                List<Integer> resultList = new LinkedList<>();
+                for (Integer n: numList) {
+                    if (0 == (n % 3))
+                        resultList.add(n);
+                }
+                System.out.println(">>> iteration resultList: " + resultList);
+        
+                resultList = numList.stream()
+                    // Predicate: boolean test(Integer i)
+                    .filter((n) -> 0 == (n % 3))
+                    .distinct()
+                    .sorted()
+                    .limit(5)
+                    .toList() ;
+                System.out.println(">>> stream resultList: " + resultList);
+        }
+    }
+
